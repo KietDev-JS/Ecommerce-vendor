@@ -9,12 +9,15 @@ import { getSalesCount } from "@/actions/get-sales-count";
 import { getGraphRevenue } from "@/actions/get-graph-revenue";
 import { getStockCount } from "@/actions/get-stock-count";
 import { formatter } from "@/lib/utils";
-export const storeId = "2104";
+import { auth } from "@clerk/nextjs";
+
 const DashboardPage = async () => {
-  const totalRevenue = await getTotalRevenue(storeId);
-  const graphRevenue = await getGraphRevenue(storeId);
-  const salesCount = await getSalesCount(storeId);
-  const stockCount = await getStockCount(storeId);
+  const { userId } = auth();
+  if (!userId) return;
+  const totalRevenue = await getTotalRevenue(userId);
+  const graphRevenue = await getGraphRevenue(userId);
+  const salesCount = await getSalesCount(userId);
+  const stockCount = await getStockCount(userId);
 
   return (
     <div className="flex-col">

@@ -10,10 +10,16 @@ export const storeId = "2104";
 const OrdersPage = async () => {
   const { userId } = await auth();
   if (!userId) return;
-
   const orders = await prismadb.order.findMany({
     where: {
-      storeId,
+      isPaid: true,
+      orderItems: {
+        some: {
+          product: {
+            userId,
+          },
+        },
+      },
     },
     include: {
       orderItems: {

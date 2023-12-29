@@ -86,6 +86,7 @@ model Order {
   address    String      @default("")
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
+  userId     String
 
   @@index([storeId])
 }
@@ -139,4 +140,13 @@ model Image {
   updatedAt DateTime @updatedAt
 
   @@index([productId])
+}
+
+model Message {
+  id          String   @id @default(uuid())
+  userId      String
+  userName    String
+  email       String
+  messageBody String
+  createdAt   DateTime @default(now())
 }

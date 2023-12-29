@@ -5,11 +5,17 @@ interface GraphData {
   total: number;
 }
 
-export const getGraphRevenue = async (storeId: string): Promise<GraphData[]> => {
+export const getGraphRevenue = async (userId: string): Promise<GraphData[]> => {
   const paidOrders = await prismadb.order.findMany({
     where: {
-      storeId,
       isPaid: true,
+      orderItems: {
+        some: {
+          product: {
+            userId,
+          },
+        },
+      },
     },
     include: {
       orderItems: {
