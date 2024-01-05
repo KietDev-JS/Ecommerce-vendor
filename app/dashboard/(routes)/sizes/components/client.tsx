@@ -16,7 +16,6 @@ interface SizesClientProps {
 }
 
 export const SizesClient: React.FC<SizesClientProps> = ({ data }) => {
-  const params = useParams();
   const router = useRouter();
 
   return (
